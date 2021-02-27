@@ -1,27 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Scaffolding_Template_NorthWind.Models
 {
     public partial class Order
     {
-        public int OrderDuration
+        [NotMapped]
+        public string OrderDuration
         {
             get
             {
-                var resultado = 0;
+                var resultado = "Order not Shipped";
                 if (this.ShippedDate != null && this.OrderDate != null) 
                 {
-                    var diff = this.ShippedDate - this.OrderDate
-                    TimeSpan tiempo = diff;
+                    var hoursTaken = (this.ShippedDate.Value - this.OrderDate.Value).TotalHours;
+                    resultado = "The order took " + hoursTaken +" hours to be shipped";
                 }
                 return resultado;
             }
             set 
-            { 
-            
-            }
+            { }
         }
     }
 }
